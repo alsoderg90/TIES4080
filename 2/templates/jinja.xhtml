@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Viikkotehtävä 2</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"> </link>
+    </head>
+    <body>
+      
+<!-- HTMLinspectoria käytetään validointiin. Kannattaa
+vielä varmuuden vuoksi ajaa välillä myös W3C:n validaattori -->
+<!-- Sivun validoinnin W3C:n validaattorilla voit tehdä milloin tahansa näppäinyhdistelmällä CTRL+ALT+V -->
+<script src="https://appro.mit.jyu.fi/tools/htmlinspector/html-inspector.js"></script>
+<script src="https://appro.mit.jyu.fi/tools/validator/validator.user.js"></script>
+<script>
+//<![CDATA[
+function HTMLvalidointi() {
+		HTMLInspector.inspect( {
+        		domRoot: "html",
+        		useRules: null,
+       			 excludeRules: ["script-placement","unnecessary-elements"],
+        		excludeElements: "svg",
+        		excludeSubTrees: ["svg","iframe"],
+        		onComplete: function(errors) {
+                		errors.forEach(function(error) {
+                        	console.warn(error.message, error.context);
+                		});
+
+		        }
+        	} );
+
+                timer = true;
+        }
+
+window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
+// window.addEventListener("load", Validate); // ajaa aina sivun latauduttua W3C:n validaattorin
+//]]>
+
+</script>
+<h1>Pelilauta</h1>
+<p> Kerro luotavan pelialueen koko ja pelaajien nimet. Ruudukko on yhtä monta ruutua leveä kuin korkea. </p>
+<form action="{{request.base_url}}" accept-charset="UTF-8" method="GET">
+	<fieldset>
+		<p> {{ form.x.label }} {{ form.x }} </p>
+		<p> {{ form.pelaaja1.label }} {{form.pelaaja1 }} </p>
+		<p> {{ form.pelaaja2.label }} {{form.pelaaja2 }} </p>
+		<p><input type="submit" name="laheta" value="Luo" /> </p>
+	</fieldset>
+</form>
+<div class="div-table">
+		<div class="col"> <div class="names"> {{ pelaaja1 }} </div> </div>
+		<div class="col">
+		<div class="options">
+			{% if poistettu != None and not clicked %}			
+				<p> <a href="{{kumoa}}"> Kumoa poisto </a> </p>
+			{% else %}
+				<p> Kumoa poisto </p>
+			{% endif %}
+		{{palautettava}}
+		</div>
+			<form action="{{request.base_url}}" accept-charset="UTF-8" method="GET">
+				<table>
+				{% for i in range(x) %}
+					<tr>
+					{% for j in range(x) %}
+						{% set XY = i|string + ";" + j|string %}
+						{% if XY not in laudalla and laudalla|length > 0 %}
+							{% set style = "hidden" %}
+							{% set value= "" %}
+						{% else %}	
+							{% set style = "" %}
+							{% set value = XY %}
+						{% endif %}
+						{% if XY == palautettava %}
+							{% set svg = "images/red.svg" %}
+						{% else %}
+							{% set svg = "images/blue.svg" %}
+						{% endif %}
+						{% if i == j and balls == "top-to-bottom" %}
+							<td class= "{{first}}"> 
+								<button class="button" formmethod="get" name="XY" value="{{XY}}"> <img src="{{ url_for('static', filename = svg)}}" alt="" class="{{style}}"> </img> </button>
+								<input type="hidden" value= "{{value}}" name="laudalla" />
+							</td>
+						{% elif i + j == x-1 and balls == "bottom-to-top" and x%2!=0 %}
+							<td class= "{{first}}"> 
+								<button class="button" formmethod="get" name="XY" value="{{XY}}"> <img src="{{ url_for('static', filename = svg)}}" alt="" class="{{style}}"> </img> </button>
+								<input type="hidden" value= "{{value}}" name="laudalla" />
+							</td>
+						{% elif i + j == x-1 and balls == "bottom-to-top" and x%2==0 %}
+							<td class= "{{second}}"> 
+								<button class="button" formmethod="get" name="XY" value="{{XY}}"> <img src="{{ url_for('static', filename = svg)}}" alt="" class="{{style}}"> </img> </button>
+								<input type="hidden" value= "{{value}}" name="laudalla" />
+							</td>							
+						{% elif i%2 == 0 and j%2 == 0 %}
+							<td class= "{{first}}"> </td>
+						{% elif i%2 != 0 and j%2 != 0 %}
+							<td class= "{{first}}"> </td>
+						{% else %}
+							<td class= "{{second}}" ></td>
+						{% endif %}
+					{% endfor %}
+					</tr>
+				{% endfor %}
+				</table>
+				<input type="hidden" name="pelaaja1" value="{{pelaaja1}}" > </input>
+				<input type="hidden" name="pelaaja2" value="{{pelaaja2}}" > </input>
+				<input type="hidden" name="undo" value="{{request.full_path}}" > </input>
+			</form>
+		</div>
+		<div class="col"> <div class="names"> {{ pelaaja2 }} </div> </div>
+</div>
+</body>

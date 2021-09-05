@@ -1,14 +1,12 @@
 from flask import Flask, request, make_response
 from math import sin, cos, sqrt, atan2, radians
-import logging
 import datetime
 import urllib.request
 import random
 import simplejson
 import io
 
-# - Yritä saada data-parametrit pois
-# lajittelu ajan mukaan tasatilanteissa
+# sorttaus 5-tasolla ajan mukaan, data-parametri pois(?), updatessa vanhan id:n säilytys
 
 #               TASO 1              #
 
@@ -56,7 +54,7 @@ def leimaustapa(data, leimaustapa):
         if (lt in leimaustapa):
             leimaustavat.append(data["leimaustapa"].index(lt))
     return leimaustavat
-            
+
 #Etsii käyttämättömän id:n ja palauttaa käyttämättömän sen
 def joukkueen_id(data):
     id_lista = []
@@ -67,7 +65,7 @@ def joukkueen_id(data):
         i = random.randint(1e15,1e16)
         if i not in id_lista:
             return i
-    
+
 #               TASO 3              #
 
 # Poistaa parametrina saadusta sarjasta parametrina saadun joukkueen
@@ -76,8 +74,10 @@ def poista_joukkue(data, sarja, joukkue):
         if data["sarjat"][d]["nimi"].upper() == sarja.upper():
             for j in range(len(data["sarjat"][d]["joukkueet"])):
                 if data["sarjat"][d]["joukkueet"][j]["nimi"].upper() == joukkue.upper():
+                    #return sarja + "LÖYTY" + str(data["sarjat"][d]["joukkueet"][j]["id"])
                     del data["sarjat"][d]["joukkueet"][j]
-    return None  
+                    return
+    return
 
 #Joukkuelistaus, jossa mukana joukkueen pisteet
 def joukkueet_toka(data):
@@ -86,10 +86,10 @@ def joukkueet_toka(data):
     for i in data["sarjat"]:
         for j in i["joukkueet"]:
             joukkue =   {
-                "jasenet": [], 
+                "jasenet": [],
                 "nimi": "",
                 "pisteet": 0
-                }    
+                }
             joukkue["nimi"] = j["nimi"]
             joukkue["jasenet"] = j["jasenet"]
             joukkue["jasenet"].sort();
@@ -119,7 +119,7 @@ def laske_pisteet(rastit, data):
                         kaydyt.append(str(r["rasti"]))
                     except:
                         pass
-    return pisteet   
+    return pisteet
 
 #               TASO 5              #
 
@@ -130,10 +130,10 @@ def joukkueet_kolmas(data):
     for i in data["sarjat"]:
         for j in i["joukkueet"]:
             joukkue =   {
-                "jasenet": [], 
+                "jasenet": [],
                 "nimi": "",
                 "pisteet": 0
-                }    
+                }
             joukkue["nimi"] = j["nimi"]
             joukkue["jasenet"] = j["jasenet"]
             joukkue["jasenet"].sort();
@@ -144,7 +144,7 @@ def joukkueet_kolmas(data):
     joukkueet.sort(key=lambda joukkue: joukkue["nimi"])
     joukkueet.sort(key=lambda joukkue: joukkue["pisteet"], reverse=True)
     for k in joukkueet:
-        string += "\n{0} ({1} p, {2} km, {3}) \n\t".format(k["nimi"],k["pisteet"], k["matka"], k["aika"])
+        string += "\n{0} ({1} p, {2} km, 0{3})\n\t".format(k["nimi"],k["pisteet"], k["matka"], k["aika"])
         jasenet = "\n\t".join(k["jasenet"])
         string += jasenet
     return string
@@ -157,7 +157,7 @@ def laske_matka(rastit, data):
         r1 = rasti(r["rasti"], data)
         if r1:
             kuljetut.append(r1)
-            
+
     matka = 0
     lahto = False
     i = 0
@@ -175,14 +175,14 @@ def laske_matka(rastit, data):
             lat1 = float(r1["lat"])
             lon1 = float(r1["lon"])
             lat2 = float(r2["lat"])
-            lon2 = float(r2["lon"]) 
+            lon2 = float(r2["lon"])
             km = etaisyys(lat1,lon1,lat2,lon2)
             if (type(km) == float):
                 matka += km
             i+=1
-            j+=1                              
+            j+=1
     return round(matka)
-    
+
 
 #Apufunktio rastin palautukseen
 def rasti(rasti, data):
@@ -206,7 +206,7 @@ def etaisyys(a, b, c, d):
     distance = R * c
     return distance
 
-#Apufunktio joukkueen käyttämän ajan laskuun. 
+#Apufunktio joukkueen käyttämän ajan laskuun.
 def laske_aika(rastit, data):
     maali_Id = None
     for a in data["rastit"]:
@@ -229,13 +229,30 @@ def laske_aika(rastit, data):
     try:
         return loppuaika - lahtoaika
     except:
-        return "00:00:00"
+        return "0:00:00"
 
 #Päivitetään joukkue
-def paivita(data, tunniste, joukkue):
-    return None
+def paivita(data, tunniste, joukkue, sarja):
+    i = ""
+    for s in data["sarjat"]:
+        for j in s["joukkueet"]:
+            if (j["nimi"] == joukkue["nimi"]):
+                i = s["nimi"]
+            if (str(j["id"]) == str(tunniste) and s["nimi"].upper() == sarja.upper()):
+                j["nimi"] = joukkue["nimi"]
+                j["jasenet"] = joukkue["jasenet"]
+                j["leimaustapa"] = leimaustapa(data, joukkue["leimaustapa"])
+                return
+            if (str(j["id"]) == str(tunniste) and s["nimi"].upper() != sarja.upper()):
+                lisaa_joukkue(data, sarja, joukkue)
+                poista_joukkue(data, i, j["nimi"])
+    return
 
 app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello from Flask!'
 
 @app.route('/vt1')
 def aloita():
@@ -244,8 +261,8 @@ def aloita():
     reset = request.args.get("reset")
     sarja = request.args.get("sarja")
     tila = request.args.get("tila")
-    tunniste = request.args.get("tila")
-    
+    tunniste = request.args.get("id")
+
     nimi = request.args.get("nimi")
     jasenet = request.args.getlist("jasen")
     leimaustavat = request.args.getlist("leimaustapa")
@@ -262,29 +279,23 @@ def aloita():
     else:
         with io.open("data.json", "r", encoding="UTF-8") as file:
             data = simplejson.load(file)
-    if (tila == "delete"):   
-        poista = poista_joukkue(data, sarja, nimi)
-    if (tila == "insert"): 
+    if (tila == "delete"):
+        poista_joukkue(data, sarja, nimi)
+    if (tila == "insert"):
         lisaa_joukkue(data, sarja, joukkue)
     if (tila == "update"):
-        paivita(data, tunniste, joukkue)
-        
+        paivita(data, tunniste, joukkue, sarja)
+
     koodit = rastien_koodit(data)
     joukkueet = joukkueet_eka(data)
     pisteet = joukkueet_toka(data)
-    matka = joukkueet_kolmas(data)
     aika = joukkueet_kolmas(data)
-    
+
     JSONtiedosto = simplejson.dumps(data)
     with io.open("data.json", "w", encoding="UTF-8") as file:
         file.write(JSONtiedosto)
-        
-    tulos = joukkueet + "\n\n" + koodit + "\n" + pisteet + "\n" + aika
+
+    tulos = joukkueet + "\n\n" + koodit + "\n\n" + pisteet + "\n\n" + aika
     resp = make_response(tulos)
     resp.mimetype = "text/plain"
     return resp
-
-if __name__ == '__main__':
-    # asetetaan debug-moodi päälle. Ei saa pitää päällä tuotantokäytössä
-    app.debug = True
-    app.run()

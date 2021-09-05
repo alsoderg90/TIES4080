@@ -1,0 +1,61 @@
+td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	width: 25px;
+	height: 25px;
+	margin-left:25%;
+	background-color: transparent
+}
+
+
+td {
+	position:relative;
+	width: 50px;
+	padding: 0;
+	height: 50px;
+	border: 1px solid black;
+}	
+
+.names {
+	transform: rotate(-90deg);
+	font-size: 20px;
+}
+
+table { 
+	empty-cells: show; 
+}
+
+.black {
+	background-color: black;
+}
+
+.white {
+	background-color: white;
+}
+
+.div-table {
+  display: table;       
+  width: auto;         
+}
+
+.col {
+  display: table-cell;
+  position: relative;  
+  width: auto;    
+  height: auto;
+  vertical-align: middle;
+}
+
+
+.button {     
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer; 
+}
+
+.hidden {
+	display: none
+}
+
