@@ -49,40 +49,37 @@ window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
 		</fieldset>	
 	</div> 
 </form>
-<p> {{ poistettu }} </p>
-<p> {{tila}}</p>
-<p> {{ laudalla }}</p>
+<p> {{ pelaaja1 }} </p>
+<p> {{ clicked }} Clicked </p>
 <div class="options">
-	<p> {{tila}}-tila valittuna </p>
 	<ul>
 	<!-- jos siirtotila valittuna, ei voi valita uudestaan -->
-	{% if tila == "siirto" %} <li> Siirto  </li> 
+	{% if tila == "siirto" or tila == "alku" %} <li> Siirto  </li> 
 	{% else %} <li> <a href="{{urls[0]}}"> Siirto </a> </li> 
 	{% endif %}
 	<!-- jos poistotila valittuna, ei voi valita uudestaan -->
-	{% if tila == "poisto" %} <li> Poisto  </li> 
+	{% if tila == "poisto" or tila == "alku" %} <li> Poisto  </li> 
 	{% else %} <li> <a href="{{urls[1]}}"> Poisto </a> </li> 
 	{% endif %}
 	<!-- linkkiä ei näytetä jos ei siirron kumoaminen mahdollista -->
-	{% if clicked == None %} <li> Kumoa  </li>
+	{% if clicked == None or tila == "alku" %} <li> Kumoa  </li>
 	{% else %} <li> <a href="{{urls[2]}}"> Kumoa </a> </li> 
 	{% endif %}
 	</ul>
 </div>
-<div class="div-table">
-		{% if form.pelaaja1.data != None %} <!-- Kommentti -->
-		<div class="col"> 
-			<div class="names"> <div> {{ form.pelaaja1.data }} </div> </div> </div>
-		<div class="col">
-		{% endif %}
-
+<table>
+	<tr>
+		<td> 
+			<span class="names"> {{form.pelaaja1.data}} </span> 
+		</td>
+		<td>
 			<form action="{{request.base_url}}" accept-charset="UTF-8" method="GET">
-				<table>
+				<table class="table">
 				{% for i in range(x) %}
 					<tr>
 					{% for j in range(x) %}
-						{% if tila == None %} 
-						{% set bDisabled = "disabled" %} <!-- jos tilaa ei valittu, painikkeita ei voi valita -->
+						{% if tila == None or tila == "alku" %} 
+							{% set bDisabled = "disabled" %} <!-- jos tilaa ei valittu, painikkeita ei voi valita -->
 						{% endif %}
 						{% set XY, disabled = i|string + ";" + j|string, "" %}
 						<!-- Jos koordinaatti löytyy laudalta, sitä vastaava 
@@ -98,8 +95,12 @@ window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
 						<!-- painikkeiden värien valinta -->
 						{% if XY == palautettava %}
 							{% set svg = "images/red.svg" %}
+						{% elif XY == poistettu %}
+							{% set svg = "images/selectedcolor.svg" %}
+						{% elif XY == moved %}
+							{% set svg, bDisabled = "images/movedcolor.svg", "disabled" %}
 						{% else %}
-							{% set svg = "images/blue.svg" %}
+							{% set svg = "images/basecolor.svg" %}
 						{% endif %}
 						{% if i == j and balls == "top-to-bottom" %}
 							<td class= "{{fst}}"> 
@@ -142,18 +143,17 @@ window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
 					</tr>
 				{% endfor %}
 				</table>
-				<input type="hidden" name="undo" value="{{request.full_path}}" /> 
-				<input type="hidden" name="pelaaja1" value="{{pelaaja1}}" />
-				<input type="hidden" name="pelaaja2" value="{{pelaaja2}}" />
+				<input type="hidden" name="pelaaja1" value="{{pelaajat[0]}}" />
+				<input type="hidden" name="pelaaja2" value="{{pelaajat[1]}}" />
 				<input type="hidden" name="tila" value= "{{tila}}" />
-				<input type="hidden" name="old" value= "{{vanha}}" />
-
+				<input type="hidden" name="old" value= "{{poistettu}}" />
+				{% set url = request.full_path.split("undo") %}
+				<input type="hidden" name="undo" value="{{url[0]}}" /> 
 			</form>
-		</div>
-		{% if form.pelaaja2.data != None %}
-		<div class="col"> 
-			<div class="names"> {{ form.pelaaja2.data }} </div>
-		</div>
-		{% endif %}
-</div>
+		</td>
+		<td>
+		<span class="names"> {{ form.pelaaja2.data }} </span>
+		</td>
+	</tr>
+</table>
 </body>

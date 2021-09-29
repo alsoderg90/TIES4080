@@ -5,11 +5,10 @@ td img{
 	width: 25px;
 	height: 25px;
 	margin-left:25%;
-	background-color: transparent
+	background-color: transparent;
 }
 
-
-td {
+.table td {
 	position:relative;
 	width: 50px;
 	padding: 0;
@@ -17,13 +16,13 @@ td {
 	border: 1px solid black;
 }	
 
-.names {
-	transform: rotate(-90deg);
-	font-size: 20px;
+.form {
+	width: 50%;
 }
 
-table { 
-	empty-cells: show; 
+.form label {
+	display: inline-block;
+	width: 85px;
 }
 
 .black {
@@ -34,20 +33,6 @@ table {
 	background-color: white;
 }
 
-.div-table {
-  display: table;       
-  width: auto;         
-}
-
-.col {
-  display: table-cell;
-  position: relative;  
-  width: auto;    
-  height: auto;
-  vertical-align: middle;
-}
-
-
 .button {     
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -56,6 +41,27 @@ table {
 }
 
 .hidden {
-	display: none
+	visibility :hidden;
 }
+
+.table {      
+  width: auto;         
+}
+
+.names {
+	display: block;
+	font-size: 1.5em;
+	-ms-writing-mode: tb-rl;
+	-webkit-writing-mode: vertical-rl;
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
+	white-space: nowrap;
+	width: 25px;
+}
+
+.options li {
+  display:inline;
+}
+
+
 
