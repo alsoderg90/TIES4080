@@ -49,8 +49,6 @@ window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
 		</fieldset>	
 	</div> 
 </form>
-<p> {{ pelaaja1 }} </p>
-<p> {{ clicked }} Clicked </p>
 <div class="options">
 	<ul>
 	<!-- jos siirtotila valittuna, ei voi valita uudestaan -->
@@ -61,9 +59,9 @@ window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
 	{% if tila == "poisto" or tila == "alku" %} <li> Poisto  </li> 
 	{% else %} <li> <a href="{{urls[1]}}"> Poisto </a> </li> 
 	{% endif %}
-	<!-- linkkiä ei näytetä jos ei siirron kumoaminen mahdollista -->
-	{% if clicked == None or tila == "alku" %} <li> Kumoa  </li>
-	{% else %} <li> <a href="{{urls[2]}}"> Kumoa </a> </li> 
+	<!-- linkkiä ei näytetä jos  siirron kumoaminen ei ole mahdollista -->
+	{% if clicked == "False" %} <li> <a href="{{urls[2]}}"> Kumoa </a> </li> 
+	{% else %} <li> Kumoa  </li>	
 	{% endif %}
 	</ul>
 </div>

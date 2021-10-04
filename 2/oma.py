@@ -82,7 +82,7 @@ def wtlomake():
         poistoUrl = request.base_url + "?" + poisto   
     try:
         #luodaan linkki siirron kumoamiselle
-        args = urllib.parse.urlencode( { u"clicked": "None", u"palautettava" : button } )
+        args = urllib.parse.urlencode( { u"clicked": None, u"palautettava" : button } )
         kumoaUrl = request.base_url + "?" + args + "&" + url[2:]  
         
         #args = urllib.parse.urlencode( { u"clicked": "None", u"palautettava" : button } )
@@ -116,13 +116,16 @@ def wtlomake():
             laudalla.add(button) # lisätään se uudelle ruudulle
             moved = button
             button = None
-            clicked = True #tehdään kumoa-linkki näkyväksi
+            clicked = "False" #tehdään kumoa-linkki näkyväksi
         except:
             pass
 
-    elif tila == "poisto" and button in laudalla:
+    elif tila == "poisto":
         laudalla.remove(button) # poistetaan pelimerkki laudalta
-        clicked = True #tehdään kumoa-linkki näkyväksi
+        if not clicked:
+            clicked = "False" #tehdään kumoa-linkki näkyväksi
+        else:
+            clicked = None
 
     #pelilaudan ruutujen väritys asetusten mukaan
     balls = data[u"balls"]   
@@ -152,7 +155,3 @@ def wtlomake():
     
     return render_template("jinja.xhtml", palautettava=palautettava,  poistettu=button, clicked=clicked, urls=urls, tila = tila, laudalla=list(laudalla), form=form, fst=fst, sec=sec, balls=balls, x=x, moved=moved, pelaajat=pelaajat, mimetype="application/xhtml+xml;charset=UTF-8").encode("UTF-8")
 
-
-#Ongelmia:
-# - tarkistukset ja virheilmoitukset
-# - pelaajien nimien dekoodaus
