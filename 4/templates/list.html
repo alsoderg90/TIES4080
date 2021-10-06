@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1> Joukkueet</h1>
+<ul>
+{% for i in a %}
+	<li> {{ i["kisanimi"] }} </li>
+	<ul>
+	{% for u in i["sarjat"] %}
+		<li> {{ u["sarjanimi"] }} </li>
+		<ul>
+			{% for t in u["joukkueet"] %}
+				{% if t["lisaaja"] != session["user"]["email"] %}
+					<li> {{ t["nimi"] }}</li>
+				{% else %}
+					<li> <a href={{ url_for("edit", cid=i["id"], did=u["id"], tid=t["id"]) }}> {{ t["nimi"] }} </a> </li>
+				{% endif %}
+				<ul>
+				{% for m in t["jasenet"] %}	
+					<li> {{ m }} </li> 
+				{% endfor %}
+				</ul>			
+			{% endfor %}
+		</ul>
+	{% endfor %}
+	</ul>
+{% endfor %}
+</ul>
+{% endblock %}

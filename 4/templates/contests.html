@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+	<form action="{{request.base_url}}" accept-charset="UTF-8" method="POST">
+		<label for="contests"> Valitse kilpailu </label>
+		<select name="contests" id="contests">
+			{% for c in contests %}
+			<option value= {{c["id"]}}> {{c["kisanimi"]}} </option>
+			{% endfor %}
+		</select>
+		<input type="submit" value="submit">
+	</form>
+</div>
+{% endblock %}

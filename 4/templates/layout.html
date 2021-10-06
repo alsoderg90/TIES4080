@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Viikkotehtävä 2</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
+    </head>
+    <body>
+		<p> Kirjauduttu sisään sähköpostilla: {{ session["user"]["email"] }}</p>
+		<ul>
+			<li> <a href= {{url_for("contests") }}>Kilpailut</a> </li>
+			<li> <a href= {{url_for("divisions") }}>Sarjat</a> </li>
+			<li> <a href= {{url_for("listall") }}> Joukkuelistaus</a> </li>			
+			<li> <a href= {{url_for("form") }}> Lisää joukkue</a> </li>			
+			<li> <a href= {{url_for("logout") }}>Logout</a> </li>
+		</ul>		
+		<div id="content">
+		{% block content %}
+		{% endblock %}
+		</div>
+	</body>
+</html>		
