@@ -8,7 +8,7 @@
 - http://alsoderg.eu.pythonanywhere.com/login tollot : ties4080
 - http://alsoderg.eu.pythonanywhere.com/admin/ admin : admin
 
-[HT 4 (Taso 5) ]((https://ties4080-328107.ew.r.appspot.com/))
+[HT 4 (Taso 5) ](https://ties4080-328107.ew.r.appspot.com/)
 
 [HT 5 (Taso 0) ]((www.google.fi))
 
