@@ -2,9 +2,11 @@
 
 
 # misc
+DATA-DIR
 env
 __pycache__
 venv
 *.sql
 *.zip
 *.json
+*.cmd

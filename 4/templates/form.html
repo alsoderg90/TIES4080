@@ -3,15 +3,18 @@
 <h1>Lisää joukkue</h1>
 <form action="{{request.base_url}}" accept-charset="UTF-8" method="POST">
 	<div class="form">
-		<fieldset>
-			<p> {{ form.name.label }} {{ form.name }} 	 </p>
-			<p> {{ form.member1.label }} {{form.member1 }} </p>
-			<p> {{ form.member2.label }} {{form.member2 }} </p>
-			<p> {{ form.member3.label }} {{form.member3 }} </p>
-			<p> {{ form.member4.label }} {{form.member4 }} </p>
-			<p> {{ form.member5.label }} {{form.member5 }} </p>
-			<p> <button type="submit" name="laheta" value="Luo"> Lisää joukkue </button> </p>
-		</fieldset>	
+		{{ form.csrf_token }}
+			{{ form.name.label(class_="left") }}
+			<p> {{ form.name }} <span> {{ form.name.errors[0] }} </span>  </p>
+			<p class="clear"> 
+				<span> {{ form.member1.errors[0] }} </span> 
+			</p>	
+			{{ form.member1.label(class_="left") }} <p> {{ form.member1 }} </p>
+			{{ form.member2.label(class_="left") }} <p> {{ form.member2 }} </p>
+			{{ form.member3.label(class_="left") }} <p> {{ form.member3 }} </p>
+			{{ form.member4.label(class_="left") }} <p> {{ form.member4 }} </p>
+			{{ form.member5.label(class_="left") }} <p> {{ form.member5 }} </p>
+			<p> {{ form.submit }} </p>               
 	</div> 
 </form>
 {% endblock %}

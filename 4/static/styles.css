@@ -1,0 +1,52 @@
+#navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+
+#navbar li {
+  float: left;
+}
+
+.form {
+  width: 25em;
+}
+
+#navbar li a:not(.admin) {
+  display: block;
+  text-decoration: underline;
+  color: orange;
+  padding: 14px 16px;
+}
+
+.admin {
+  display: block;	
+  color: red;
+  padding: 14px 16px;
+}
+
+span {
+  color: red;
+}
+
+.clear {
+  clear: both;
+}
+
+.left {
+  width: 30%;
+  float: left;
+  display: block;
+  margin: 0;
+}
+
+.right {
+    display: block;
+    float: left;
+}
+
+#content {
+  clear: both;
+}

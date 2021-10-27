@@ -2,13 +2,9 @@
 {% block content %}
 <div>
 	<form action="{{request.base_url}}" accept-charset="UTF-8" method="POST">
-		<label for="divisions"> Valitse Sarja </label>
-		<select name="divisions" id="divisions">
-			{% for d in divisions %}
-			<option value= {{d["id"]}}> {{d["sarjanimi"]}} </option>
-			{% endfor %}
-		</select>
-		<input type="submit" value="submit">
+		{{ form.csrf_token }}
+		<p> {{ form.division.label }} {{form.division }} </p>
+		<p> {{ form.submit }} </p>
 	</form>
 </div>
 {% endblock %}

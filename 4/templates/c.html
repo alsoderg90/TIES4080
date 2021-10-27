@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<div>
+	<h1> Muokkaa leimausta </h1>	
+	<form action="{{request.base_url}}" accept-charset="UTF-8" method="POST">
+		{{ form.csrf_token }}
+			<p> {{ form.codes.label }} {{ form.codes }} </p>
+			<p> {{ form.time.label }} {{form.time }} </p>
+			<p> {{ form.delete.label }} {{form.delete }}  </p>
+			<p> {{ form.submit }} </p>
+	</form>
+</div>
+{% endblock %}

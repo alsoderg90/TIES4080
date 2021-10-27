@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1> Kirjaudu sisään ylläpitäjänä</h1>
+<div>
+    <form action="{{request.base_url}}" method="POST">
+		{{ form.csrf_token }}
+        <p> <b> {{ form.username.label }} </b> </p>
+        <p> {{ form.username }} </p>
+        <p> <b> {{ form.password.label}} </b> </p>
+        <p> {{ form.password }} </p>
+        <p> {{ form.submit }} </p>
+    </form>
+</div>
+{% endblock %}
