@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Viikkotehtävä 3 - TIES4080</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user.css') }}">
+    </head>
+    <body>
+        <div id="navbar">
+        <ul>
+            <li><a class="nimi"> {{ session["kilpailu"]["kisanimi"] }} </a>  </li>
+            <li><a href={{ url_for("muokkaa", joukkuenimi= session["joukkue"]["joukkuenimi"]) }}> {{ session["joukkue"]["joukkuenimi"] }} </a> </li>
+            <li><a href={{ url_for("joukkuelistaus") }}> Joukkueet </a> </li>
+            <li class="logout"><a href={{ url_for("logout") }}> Logout </a> </li>
+        </ul>
+        </div>
+        <div id="content"> {% block content %} {% endblock %}  </div>
+    </body>
+</html>

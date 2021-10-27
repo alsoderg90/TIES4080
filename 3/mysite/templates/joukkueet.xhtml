@@ -1,0 +1,44 @@
+{% extends "adminlayout.xhtml" %}
+{% block content %}
+    <p> {% for e in form.sarja.errors %} <span>{{ e }}</span> {% endfor %} </p>
+    <div class="flex">
+        <div class="flex-child">
+            <h1> Sarjan joukkueet </h1>
+            <ul>
+            {% for j in joukkueet %}
+                <li> <a href={{ url_for("adminMuokkaa", joukkuenimi=j["joukkuenimi"]) }}> {{ j["joukkuenimi"] }} </a> </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="flex-child">
+            <h1> Lisää joukkue </h1>
+            <div>
+                <form action="{{request.base_url}}" method="POST">
+                    <fieldset>
+                    {{ form.csrf_token }}
+                    <div class="vasen">
+                        <p> {{ form.nimi.label }} {% for e in form.nimi.errors %} <span>{{ e }}</span> {% endfor %} </p>
+                        <p> {{ form.salasana.label }} </p>
+                    </div>
+                    <div class="oikea">
+                        <p> {{ form.nimi }} </p>
+                        <p> {{ form.salasana }} </p>
+                    </div>
+                    </fieldset>
+                    <fieldset>
+                    {% for e in form.jasen1.errors %} <span>{{ e|e }}</span> {% endfor %}
+                    <div class="vasen"> Jäsenet </div>
+                    <div class="oikea">
+                        <p> {{ form.jasen1.label }} {{ form.jasen1 }} </p>
+                        <p> {{ form.jasen2.label }} {{ form.jasen2 }} </p>
+                        <p> {{ form.jasen3.label }} {{ form.jasen3 }} </p>
+                        <p> {{ form.jasen4.label }} {{ form.jasen4 }} </p>
+                        <p> {{ form.jasen5.label }} {{ form.jasen5 }} </p>
+                        <p class="oikea"> {{ form.submit }} </p>
+                    </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

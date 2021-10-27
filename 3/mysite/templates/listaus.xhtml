@@ -1,0 +1,25 @@
+{% extends "userlayout.xhtml" %}
+{% block content %}
+    <h1> Joukkuelistaus </h1>
+    {% if joukkueet|length < 1 %}
+    <h2> Kilpailussa ei ole joukkueita </h2>
+    {% else %}
+    <ul>
+        {% for j in joukkueet %}
+        <li> {{ j["sarjanimi"] }}
+            <ul>
+            {% for i in j["joukkueet"] %}
+                <li> {{ i["joukkuenimi"] }}
+                    <ul>
+                    {% for a in i["jasenet"] %}
+                    <li> {{ a }} </li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

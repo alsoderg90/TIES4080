@@ -1,0 +1,24 @@
+{% extends "adminlayout.xhtml" %}
+{% block content %}
+    <h1> Kilpailun rastit </h1>
+    <table>
+        <thead>
+            <tr>
+                <th> Rasti </th>
+                <th> Lat </th>
+                <th> Lon </th>
+                <th> Leimauksia </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for r in rastit %}
+            <tr>
+                <td> {{ r["koodi"] }} </td>
+                <td> {{ r["lat"] }}</td>
+                <td> {{ r["lon"] }}</td>
+                <td> {{ r["leimauksia"] }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

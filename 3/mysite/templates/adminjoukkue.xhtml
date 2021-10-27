@@ -1,0 +1,63 @@
+{% extends "adminlayout.xhtml" %}
+{% block content %}
+    <h1> Muokkaa joukkuetta </h1>
+    {{ joukkue }}
+    <div>
+    <form action="{{request.base_url}}" method="POST">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <span> {{ message }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <fieldset>
+        {{ form.csrf_token }}
+        <div class="vasen">
+            <p> {{ form.nimi.label }} {% for e in form.nimi.errors %} <span>{{ e }}</span> {% endfor %} </p>
+            <p> {{ form.salasana.label }} </p>
+            <p> {{ form.sarja.label }} </p>
+        </div>
+        <div class="oikea">
+            <p> {{ form.nimi }} </p>
+            <p> {{ form.salasana }} </p>
+            <p class="oikea"> {{ form.sarja }} </p>
+        </div>
+        </fieldset>
+        <fieldset>
+            {% for e in form.jasen1.errors %} <span>{{ e }}</span> {% endfor %}
+            <div class="vasen"> Jäsenet </div>
+            <div class="oikea">
+                <p> {{ form.jasen1.label }} {{ form.jasen1 }} </p>
+                <p> {{ form.jasen2.label }} {{ form.jasen2 }} </p>
+                <p> {{ form.jasen3.label }} {{ form.jasen3 }} </p>
+                <p> {{ form.jasen4.label }} {{ form.jasen4 }} </p>
+                <p> {{ form.jasen5.label }} {{ form.jasen5 }} </p>
+                <p> {{ form.poista.label }} {{ form.poista }} </p>
+                <p class="oikea"> {{ form.submit }} </p>
+            </div>
+        </fieldset>
+    </form>
+    </div>
+    <h1> Joukkueen rastit </h1>
+    <table>
+        <thead>
+            <tr>
+                <th> Aika </th>
+                <th> Koodi </th>
+                <th> Lat </th>
+                <th> Lon </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in rastit %}
+            <tr>
+                <td> <a href={{url_for("rasti", aika=r["aika"]) }}> {{ r["aika"] }} </a> </td>
+                <td> {{ r["koodi"] }} </td>
+                <td> {{ r["lat"] }}</td>
+                <td> {{ r["lon"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

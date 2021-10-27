@@ -1,0 +1,124 @@
+#navbar ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+#navbar li {
+  float: left;
+}
+
+#navbar .logout {
+  float: right;
+  background-color: #333;
+}
+
+#navbar li a {
+  display: block;
+  color: white;
+  text-decoration: underline;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#navbar li a:hover:not(.nimi) {
+  background-color: #111;
+}
+
+#line ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#line li {
+  float: left;
+}
+
+#line li a {
+  display: block;
+  text-decoration: underline;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+table {
+    width: 476px;
+    border-spacing: 0;
+}
+
+tr, td, th {
+  padding: 5px;
+}
+
+tbody, thead tr {
+    display: block;
+}
+
+tbody {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody td, thead th {
+    width: 140px;
+}
+
+thead th:last-child {
+    width: 156px; /* 140px + 16px scrollbar width */
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #333;
+  color: white;
+}
+
+fieldset {
+  border:0;
+  max-width:20em;
+  min-width:20em;
+}
+
+span {
+    color: red;
+    margin-left:1.5em;
+}
+
+.oikea {
+    display: block;
+    float: right;
+}
+
+.vasen {
+    width: auto;
+    float: left;
+    display: block;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-child {
+  flex: 1;
+}
+
+input[type=submit], select {
+    background-color: #333;
+    color:white;
+    padding-right:0.8em;
+    padding-left:0.8em;
+}
+
+.nimi {
+  background-color: orange;
+  color: black;
+}

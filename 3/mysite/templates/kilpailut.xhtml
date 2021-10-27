@@ -1,0 +1,11 @@
+{% extends "adminlayout.xhtml" %}
+{% block content %}
+    <h1> Kilpailut </h1>
+    <div>
+        <ul>
+        {% for k in kilpailut %}
+            <li><a href={{ url_for("kilpailu", kilpailunimi=k["kisanimi"])  }}> {{ k["kisanimi"] }} </a>  </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

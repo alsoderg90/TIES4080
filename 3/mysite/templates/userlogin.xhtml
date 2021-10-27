@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Viikkotehtävä 3 - TIES4080</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='user.css') }}">
+    </head>
+    <body>
+    <h1> Login </h1>
+    <form action="{{request.base_url}}" method="POST">
+        {{ form.csrf_token }}
+        <p> {{ form.kisat.label }} {{ form.kisat }} </p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <span> {{ message }}</span>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <p> {{ form.username.label}} {{ form.username }} </p>
+        <p> {{ form.password.label}} {{ form.password }} </p>
+        <p>  <input type="submit" value="Submit"> </p>
+        </form>
+    </body>
+</html>
