@@ -1,31 +1,35 @@
 {% extends "layout.html" %}
 {% block content %}
 <br>
-<div class="form" style="float:left">
-	<h1>Muokkaa joukkuetta</h1>
-	<form action="{{request.base_url}}" accept-charset="UTF-8" method="POST">
-		{{ form.csrf_token }}
-		{{ form.name.label(class_="left") }}
-		<p> {{ form.name }} <span> {{ form.name.errors[0] }} </span>  </p>
-		<p class="clear"> 
-			<span> {{ form.member1.errors[0] }} </span> 
-		</p>	
-		{{ form.member1.label(class_="left") }} <p> {{ form.member1 }} </p>
-		{{ form.member2.label(class_="left") }} <p> {{ form.member2 }} </p>
-		{{ form.member3.label(class_="left") }} <p> {{ form.member3 }} </p>
-		{{ form.member4.label(class_="left") }} <p> {{ form.member4 }} </p>
-		{{ form.member5.label(class_="left") }} <p> {{ form.member5 }} </p>
-		<p> {{ form.submit }} </p>
-	</form>
+<div class="form">
+	<div class="form">
+		<h1>Muokkaa joukkuetta</h1>
+		<form action="{{request.base_url}}" accept-charset="UTF-8" method="POST">
+			{{ form.csrf_token }}
+			{{ form.name.label(class_="left") }}
+			<p> {{ form.name }} <span> {{ form.name.errors[0] }} </span>  </p>
+			<p class="clear"> 
+				<span> {{ form.member1.errors[0] }} </span> 
+			</p>	
+			{{ form.division.label(class_="left") }} <p> {{ form.division }} </p>			
+			{{ form.member1.label(class_="left") }} <p> {{ form.member1 }} </p>
+			{{ form.member2.label(class_="left") }} <p> {{ form.member2 }} </p>
+			{{ form.member3.label(class_="left") }} <p> {{ form.member3 }} </p>
+			{{ form.member4.label(class_="left") }} <p> {{ form.member4 }} </p>
+			{{ form.member5.label(class_="left") }} <p> {{ form.member5 }} </p>
+			{{ form.contest(class_="left") }} <p> {{ form.delete.label }} {{ form.delete }} </p>			
+			<p> {{ form.submit2 }} </p>
+		</form>
+	</div>
 </div>
 {% if "admin" in session %}
-<div>
-	<h1> Lisää rasti </h1>	
+<div class="cp">
+	<h1> Lisää rasti </h1>
 	<form action="{{request.base_url}}" accept-charset="UTF-8" method="POST">
 		{{ form.csrf_token }}
 			<p> {{ cp.codes.label }} {{ cp.codes }} </p>
 			<p> {{ cp.time.label }} {{cp.time }} </p>
-			<p> {{ cp.submit }} </p>
+			<p> {{ cp.submit1 }} </p>
 	</form>
 </div>
 {% endif %}

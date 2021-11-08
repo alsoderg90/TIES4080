@@ -1,4 +1,6 @@
 google.cloud.datastore
-flask_wtf_polyglot
+flask-wtf-polyglot==0.3
 Flask==2.0.1
 authlib 
+WTForms==2.3.3
+WTForms-Polyglot==0.3

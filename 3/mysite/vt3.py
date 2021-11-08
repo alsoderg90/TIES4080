@@ -671,6 +671,7 @@ def login():
             cur.execute(sql, (uname,))
             tulos = cur.fetchone()
             session["joukkue"] = tulos
+            session["joukkuenimi"] = tulos["joukkuenimi"]
         except:
             con.close()
         finally:

@@ -14,11 +14,17 @@
 				{% else %}
 					<li> <a href={{ url_for("edit", cid=i["id"], did=u["id"], tid=t["id"]) }}> {{ t["nimi"] }} </a> </li>
 				{% endif %}
-				<ul>
-				{% for m in t["jasenet"] %}	
-					<li> {{ m }} </li> 
-				{% endfor %}
-				</ul>			
+					<ul>
+						{% for m in t["jasenet"] %}	
+						<li> {{ m }} </li> 
+						{% endfor %}
+						<li> Rastit: </li>
+						<ul>
+							{% for l in t["leimaukset"] %}
+								<li> {{ l["koodi"] }} </li>
+							{% endfor %}
+						</ul>					
+					</ul>			
 			{% endfor %}
 		</ul>
 	{% endfor %}

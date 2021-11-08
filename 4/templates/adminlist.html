@@ -21,7 +21,11 @@
 					<li> Rastit: </li>
 						<ul>
 						{% for l in t["leimaukset"] %}
+							{% if session["contest"] != i["id"] %}
+							<li> {{ l["koodi"] }} </li>
+							{% else %}
 							<li> <a href={{ url_for("cp", cid=i["id"], did=u["id"], tid=t["id"], lid=l["id"]) }} >  {{ l["koodi"] }} </a> </li> 
+							{% endif %}
 						{% endfor %}
 						</ul>
 				</ul>			

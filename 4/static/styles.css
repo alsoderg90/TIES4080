@@ -11,7 +11,8 @@
 }
 
 .form {
-  width: 25em;
+  width: 38em;
+  float:none  
 }
 
 #navbar li a:not(.admin) {
@@ -49,4 +50,8 @@ span {
 
 #content {
   clear: both;
+}
+
+.cp {
+  min-width: 20em;
 }

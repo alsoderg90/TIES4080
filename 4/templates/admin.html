@@ -4,8 +4,16 @@
 <div>
     <form action="{{request.base_url}}" method="POST">
 		{{ form.csrf_token }}
-        <p> <b> {{ form.username.label }} </b> </p>
-        <p> {{ form.username }} </p>
+        <p> <b> {{ form.username.label }} </b>		</p>
+        <p> {{ form.username }}
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <span> {{ message }}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+		</p>
         <p> <b> {{ form.password.label}} </b> </p>
         <p> {{ form.password }} </p>
         <p> {{ form.submit }} </p>

@@ -10,3 +10,7 @@ venv
 *.zip
 *.json
 *.cmd
+populate.py
+config.py
+main_test.py
+requirements-test.txt
