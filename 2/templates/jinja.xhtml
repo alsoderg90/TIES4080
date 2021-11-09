@@ -145,6 +145,7 @@ window.addEventListener("load", HTMLvalidointi); // ajaa html-inspectorin
 				<input type="hidden" name="pelaaja2" value="{{pelaajat[1]}}" />
 				<input type="hidden" name="tila" value= "{{tila}}" />
 				<input type="hidden" name="old" value= "{{poistettu}}" />
+				<input type="hidden" name="x" value= {{x }} />
 				{% set url = request.full_path.split("undo") %}
 				<input type="hidden" name="undo" value="{{url[0]}}" /> 
 			</form>
