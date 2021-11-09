@@ -1,0 +1,39 @@
+main {
+    display: flex;
+    position: relative;
+    gap: 1em;
+}
+
+#active {
+  background-color: blue;
+  color: white;
+}
+
+#inactive {
+  background-color: white;
+  color: black;
+}
+
+.tabcontent {
+    position: absolute;
+    left: 0;
+	display: none;
+}
+
+section label {
+    display: block;
+    font-size: 2vh;
+    border: 1px solid black;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+form label {
+	border: none;
+	padding: 0;
+}
+
+.left {
+	float: left;
+	width: 10em;
+}

@@ -7,3 +7,6 @@ __pycache__
 venv
 *.sql
 *.zip
+.gitignore
+
+demot/5

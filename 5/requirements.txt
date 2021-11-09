@@ -1,0 +1,4 @@
+google.cloud.datastore
+flask_wtf_polyglot
+Flask==2.0.1
+authlib 

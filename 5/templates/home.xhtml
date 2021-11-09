@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+    <head>
+		<script src="{{ url_for('static', filename='js/script.js') }}"> </script>
+        <meta charset="utf-8"/>
+        <title>Viikkotehtävä 5</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" />
+    </head>
+    <body>
+		<main>
+			<section>
+				<label class="team"> Joukkue </label>
+				<div id="team" class="tabcontent">		 
+					<br><form>
+						<label for="name" class="left"> Joukkueen nimi:</label>
+						<p><input type="text" id="name" name="name"></p>
+						<label for="member1" class="left">Jäsen 1:</label>
+						<input type="member1" id="member1" name="member1"></p>
+						<label for="member2" class="left">Jäsen 2:</label>
+						<input type="member2" id="member2" name="member2"></p>
+						<label for="member3" class="left">Jäsen 3:</label>
+						<input type="member3" id="member3" name="member3"></p>
+						<label for="member4" class="left">Jäsen 4:</label>
+						<input type="member4" id="member4" name="member4"></p>
+						<label for="member5" class="left">Jäsen 5:</label>
+						<input type="member5" id="member5" name="member5"></p>
+						<input type="submit" value="Lähetä"> 
+					</form> 	
+				</div>
+			</section>
+			<section>
+				<label class="teams"> Joukkueet </label>
+				<div id="teams" class="tabcontent">
+					<ul>
+						<li> A </li>
+						<li> B </li>
+						<li> C </li>
+						<li> D </li>
+					</ul>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>		
